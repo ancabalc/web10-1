@@ -1,5 +1,4 @@
 <?php
-
 require_once "DB.php";
 
 class UsersModels extends DB {
@@ -11,7 +10,10 @@ class UsersModels extends DB {
         return $sth->fetch(PDO::FETCH_ASSOC);
     }
 
-
+    function getTop3() {
+            $query = "SELECT name,description,image FROM users ORDER BY id limit 3";
+            return $this->executeQuery($query);
+        }
 
 
 
