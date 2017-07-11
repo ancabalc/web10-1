@@ -6,3 +6,4 @@ require_once "DB.php";
             return $this->executeQuery($query);
         }
     }
+
