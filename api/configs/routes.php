@@ -1,5 +1,5 @@
 <?php
 
-$routes["/api/login"] = ["class" => "Accounts", "method" => "login"];
+$routes["/api/accounts/login"] = ["class" => "Accounts", "method" => "login"];
 
 ?>
