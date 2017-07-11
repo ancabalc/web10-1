@@ -1,4 +1,5 @@
 <?php
+session_start();
 
 require "configs/routes.php";
 
@@ -10,7 +11,7 @@ if (!empty($currentRoute)) {
         $class = $routes[$currentRoute]["class"];
         $method = $routes[$currentRoute]["method"];
         
-        require "api/controllers/".$class.".php";
+        require "controllers/".$class.".php";
         $controller = new $class();
         $response = $controller->$method();
         
