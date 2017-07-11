@@ -1,6 +1,6 @@
 <?php
 
-require "app/configs/routes.php";
+require "configs/routes.php";
 
 define ("APP_FOLDER", "/api");
 $currentRoute = str_replace(APP_FOLDER, "", $_SERVER["REDIRECT_URL"]);
