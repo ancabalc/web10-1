@@ -11,6 +11,8 @@ $routes["/accounts/login"] = ["class" => "Accounts", "method" => "login"];
 $routes["/accounts/reset-pass"] = ["class" => "Accounts", "method" => "resetPass"];
 
 $routes["/categories/top"] = ["class" =>"Categories", "method" => "getTop"];
+
+$routes["/cities"] = ["class" =>"Utils", "method" => "getCities"];
 ?>
 
 
