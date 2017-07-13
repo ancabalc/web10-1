@@ -1,5 +1,6 @@
 <?php
 
+
 require "models/ApplicationsModel.php";
 
 class Applications {
@@ -8,6 +9,11 @@ private $applicationsModel;
  
 function __construct(){
         $this->applicationsModel = new ApplicationsModel();    
+    }
+    
+    function getAll(){
+        return $this->applicationsModel->selectAll();
+
     }
     
     function createApplication() {
@@ -21,6 +27,7 @@ function __construct(){
                 
             return $this->applicationsModel->insertItem($_POST);    
         }
+
     }
 }
 
