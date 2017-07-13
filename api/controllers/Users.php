@@ -28,5 +28,8 @@ class Users {
             return $this->usersModel->editUser($_POST);    
         } 
     }
-
+        function getTop() {
+        return $this->usersModel->getTop3();
+    }
 }
+?>
