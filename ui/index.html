@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <div class='offers-list'>
+    </div>
+    <script
+      src="https://code.jquery.com/jquery-3.2.1.js"
+      integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
+      crossorigin="anonymous"></script>
+<script>
+$(document).ready(init);
+
+function init(){
+    getOffers();
+}
+    function getOffers() {
+         $.ajax ({
+            url:'https://web10-1-ikilledkenny.c9users.io/api/offers?id=1',
+            method: 'GET',
+            success: function (result){
+            },
+            error: function (XHR, status, error) {
+                alert ('Unable to get articles');
+            },
+            complete: function (XHR, status) {},
+        });
+    }
+  
+</script>
+</body>
+</html>
