@@ -1,8 +1,8 @@
 <?php
 
 function passEnc($pass) {
-        $salt = '$1$12!ab';
-        return crypt($pass, $salt);
+    $salt = '$1$12!ab';
+    return crypt($pass, $salt);
     }
     
 function hashPass() {
