@@ -8,6 +8,7 @@ class Applications {
 private $applicationsModel;
  
 function __construct(){
+
         $this->applicationsModel = new ApplicationsModel();    
     }
     
@@ -29,6 +30,7 @@ function __construct(){
         }
 
     }
+
 }
 
 

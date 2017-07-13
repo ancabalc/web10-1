@@ -1,6 +1,7 @@
 <?php
 
 
+
 $routes["/api/login"] = ["class" => "Accounts", "method" => "login"];
 $routes["/users"] = ["class" =>"Users", "method" => "getTop"];
 
@@ -9,5 +10,6 @@ $routes["/applications/create"] = ["class" => "Applications", "method" => "creat
 $routes["/accounts/login"] = ["class" => "Accounts", "method" => "login"];
 
 ?>
+
 
 
