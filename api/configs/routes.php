@@ -7,5 +7,6 @@ $routes["/applications"] = ["class" => "Applications", "method" => "getAll"];
 
 $routes["/accounts/login"] = ["class" => "Accounts", "method" => "login"];
 
+$routes["/categories/top"] = ["class" =>"Categories", "method" => "getTop"];
 ?>
 
