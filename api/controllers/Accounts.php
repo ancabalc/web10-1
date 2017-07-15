@@ -9,28 +9,39 @@ class Accounts {
     }
 
     function createAccount() {
+        $error=[];
+        
         if (empty($_POST["name"])
          || empty($_POST["email"])
          || empty($_POST["password"])
          || empty($_POST["repassword"])
          || empty($_POST["role"])) {
-            echo "All fields are required!";
+            array_push($error, "All fields are required!");
+        
+        } else if (!empty($this->usersModel->checkEmail($_POST["email"]))) {
+            array_push($error, "Account with this email already exists!");
 
         } else if (!filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {
-            echo "Invalid email!";
+            array_push($error, "Invalid email!");
 
         } else if (strlen($_POST["password"]) < 6) {
-            echo "Password must have at least 6 characters!";
+            array_push($error, "Password must have at least 6 characters!");
 
         } else if ($_POST["password"] !== $_POST["repassword"]) {
-            echo "Passwords do not match!";
-
+            array_push($error, "Passwords do not match!");
+        
         } else {
             $salt = '$1$12!ab';
             $password = crypt($_POST["password"], $salt);
-            $account = $this->usersModel->addAccount($_POST);
-            return $account;
+            return $this->usersModel->addAccount($_POST);
         }
+
+        if (empty($error)) {
+			return "Account was successfully created!";
+
+        } else {
+			return $error;
+		}
     }
     
     function login() {

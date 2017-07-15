@@ -23,7 +23,14 @@ class UsersModels extends DB {
         $sth->execute($params); 
         return $sth->fetch(PDO::FETCH_ASSOC);
         }
-
+    
+    function checkEmail($email) {
+        $query = 'SELECT * FROM users WHERE email = ?';
+        $sth = $this->db->prepare($query);
+        $sth->execute([$email]); 
+        return $sth->fetch();
+    }
+    
     function getTop3() {
         $query = "SELECT name,description,image FROM users ORDER BY id limit 3";
         return $this->executeQuery($query);
