@@ -1,5 +1,6 @@
 <?php
 require "models/OffersModel.php";
+require "helpers/response.php";
 
 class Offers {
     private $offersModel;
@@ -10,17 +11,12 @@ class Offers {
     
     function getItems(){
         if(empty($_GET["id"])) {
-           return ("Invalid request");
+           return error_response("Invalid request");
         } else {
-            return $this->offersModel->selectItems($_GET["id"]);
+            return success_response($this->offersModel->selectItems($_GET["id"]));
         }
     }
 }
-
-
-
-
-
 
 
 ?>
