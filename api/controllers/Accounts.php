@@ -1,12 +1,13 @@
 <?php
 require "models/UsersModels.php";
 require "helpers/password.php";
+require "helpers/response.php";
 
 class Accounts {
     private $usersModel;
     
     function __construct() {
-        $this->usersModel = new UsersModels();
+        $this->usersModel = new UsersModel();
     }
 
     function createAccount() {
@@ -15,7 +16,6 @@ class Accounts {
         if (empty($_POST["name"])
          || empty($_POST["email"])
          || empty($_POST["password"])
-         || empty($_POST["repassword"])
          || empty($_POST["role"])) {
             array_push($error, "All fields are required!");
         
@@ -34,14 +34,14 @@ class Accounts {
         } else {
             $salt = '$1$12!ab';
             $password = crypt($_POST["password"], $salt);
-            return $this->usersModel->addAccount($_POST);
+            $this->usersModel->addAccount($_POST);
         }
 
         if (empty($error)) {
-			return "Account was successfully created!";
+			return success_response("Account was successfully created!");
 
         } else {
-			return $error;
+			return error_response($error);
 		}
     }
     

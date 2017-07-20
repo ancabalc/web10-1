@@ -1,4 +1,6 @@
 <?php
+
+$routes["/accounts/create"] = ["class" => "Accounts", "method" => "createAccount"];
 $routes["/users/update"] = ["class" => "Users", "method" => "editUser"];
 $routes["/api/login"] = ["class" => "Accounts", "method" => "login"];
 $routes["/users"] = ["class" =>"Users", "method" => "getTop"];
