@@ -1,7 +1,6 @@
 <?php
 require "models/UsersModels.php";
 require "helpers/password.php";
-require "helpers/response.php";
 
 class Accounts {
     private $usersModel;
@@ -16,6 +15,7 @@ class Accounts {
         if (empty($_POST["name"])
          || empty($_POST["email"])
          || empty($_POST["password"])
+         || empty($_POST["repassword"])
          || empty($_POST["role"])) {
             array_push($error, "All fields are required!");
         
@@ -24,7 +24,10 @@ class Accounts {
 
         } else if (!filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {
             array_push($error, "Invalid email!");
-
+            
+        } else if ($_POST["password"] !== $_POST["repassword"]) {
+            echo "Passwords do not match!";
+            
         } else if (strlen($_POST["password"]) < 6) {
             array_push($error, "Password must have at least 6 characters!");
         
