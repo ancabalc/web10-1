@@ -27,9 +27,6 @@ class Accounts {
 
         } else if (strlen($_POST["password"]) < 6) {
             array_push($error, "Password must have at least 6 characters!");
-
-        } else if ($_POST["password"] !== $_POST["repassword"]) {
-            array_push($error, "Passwords do not match!");
         
         } else {
             $salt = '$1$12!ab';
