@@ -9,7 +9,7 @@ $routes["/applications/create"] = ["class" => "Applications", "method" => "creat
 $routes["/accounts/login"] = ["class" => "Accounts", "method" => "login"];
 $routes["/accounts/reset-pass"] = ["class" => "Accounts", "method" => "resetPass"];
 $routes["/categories/top"] = ["class" =>"Categories", "method" => "getTop"];
-
+$routes["/offers"] = ["class" => "Offers", "method" => "getItems"];
 $routes["/cities"] = ["class" =>"Utils", "method" => "getCities"];
 ?>
 
