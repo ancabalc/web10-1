@@ -1,7 +1,6 @@
 <?php
 require "models/UsersModel.php";
 require "helpers/password.php";
-require "helpers/response.php";
 
 
 class Accounts {
@@ -26,12 +25,12 @@ class Accounts {
 
         } else if (!filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {
             array_push($error, "Invalid email!");
-
+            
+        } else if ($_POST["password"] !== $_POST["repassword"]) {
+            echo "Passwords do not match!";
+            
         } else if (strlen($_POST["password"]) < 6) {
             array_push($error, "Password must have at least 6 characters!");
-
-        } else if ($_POST["password"] !== $_POST["repassword"]) {
-            array_push($error, "Passwords do not match!");
         
         } else {
             $salt = '$1$12!ab';
