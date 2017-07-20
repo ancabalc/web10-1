@@ -1,0 +1,13 @@
+.container {
+    width: 30%;
+}
+
+.margins {
+    margin-top: 150px;
+    margin-bottom: 10px;
+}
+
+.btn-default {
+    background-color: #1976d2;
+    color: #fff;
+}
