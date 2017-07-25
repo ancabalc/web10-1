@@ -1,6 +1,7 @@
 <?php
 require "models/UsersModels.php";
 require "helpers/password.php";
+require "helpers/response.php";
 
 class Accounts {
     private $usersModel;
