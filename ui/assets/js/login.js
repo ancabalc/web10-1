@@ -10,14 +10,14 @@ var make_call = function(params, callback) {
         method: params.method,
         data: params.data,
         success: function (result) {
-            if (!result.ok) {
+            if (result.ok === false) {
               return callback(result.error, null);
             }
             
             return callback(null,result.data);
         },
         error: function (XHR, status, error) {
-            callback(error);
+            callback(error, null);
         },
         complete: function (XHR, status) {
            
@@ -33,31 +33,28 @@ function init() {
 
 function loginUser() {
     var data = createLoginData();
-    console.log('Before loginCall');
-    loginCall(data, function(err, result){
-    console.log('After loginCall')
-        //Din controller returneaza boolean ok = true sau false
-        // return "ok"-> bool, "error"-> string, "data"->response
-        if (err) {
-            return displayMessage(err.text + '[' + err.error + ']');
-        } else if (data.ok=false) {
-            return displayMessage('Incorrect user or password');
-        } else {
-            return displayMessage('Login successful.');
-            //window.location.assign("https://web10-1-andreamarginean.c9users.io/index.html");
-        }
-    })
+    if (data === undefined) {
+        return;
+    } else {
+        loginCall(data, function(err, result){
+            if (err) {
+                return displayMessage(err.text + '[' + err.error + ']');
+            } 
+            else {
+                return displayMessage('Login successful.');
+                //window.location.assign("https://web10-1-andreamarginean.c9users.io/index.html");
+            }
+        })
+    }
 }
 
 function loginCall(data, callback) {
-    console.log('In loginCall')
     var params = {
         url: endpoints.login,
         method: 'POST',
         data: data
     }
    make_call(params, function(error, result) {
-       console.log('In make_call');
        if (error) {
             return callback({
                 error: error,
@@ -70,11 +67,18 @@ function loginCall(data, callback) {
 }
 
 function createLoginData() {
-    var data = {
-        email: getEmail(),
-        password: getPass()
+    var email = getEmail();
+    var pass = getPass();
+    if ((email==='') || (pass=='')) {
+        displayMessage('Please fill out both email and password fields.');
+        return;
+    } else {
+        var data = {
+            email: email,
+            password: pass
+        }
+        return data;
     }
-    return data;
 }
 
 function getEmail() {
@@ -87,5 +91,5 @@ function getPass() {
 }
 
 function displayMessage(txt) {
-     $('#message').text(txt);
+    $('#message').text(txt);
 }
