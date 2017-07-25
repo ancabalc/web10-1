@@ -1,4 +1,4 @@
-var BASE_URL = 'https://web10-1-andreamarginean.c9users.io/api/';
+var BASE_URL = '/api/';
     
 var endpoints = {
     login:    BASE_URL + 'accounts/login',
