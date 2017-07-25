@@ -17,38 +17,38 @@ $(document).ready(function() {
         } else if (!(password).match(repassword)) {
     	    alert("Your passwords don't match. Please retry!");
         } else {
-        $.ajax({
-            type        : 'POST',
-            url         : 'https://web10-1-adrianvarga77.c9users.io/api/accounts/create',
-            data        : {
-                name        : name,
-                email       : email,
-                password    : password,
-                repassword  : repassword,
-                role        : role
-            },
-            beforeSend  : function()
-            {
-                $("#error").fadeOut();
-                $("#btn-submit").html('<span class="glyphicon glyphicon-transfer"></span> &nbsp; sending ...');
-            },
-            success     :  function(response)
-            {
-            if(response=>ok == "true")
-            {
-                $("#btn-submit").html('Signing Up');
-                $("#error").html('<div class="alert alert-danger"> <span class="glyphicon glyphicon-info-sign"></span> &nbsp; Account was successfully created!</div>');
-                window.location.replace("login.html");
-            }
-            else{
-                $("#error").fadeIn(1000, function(){
-                    $("#error").html('<div class="alert alert-danger"><span class="glyphicon glyphicon-info-sign"></span> &nbsp; '+ data +' !</div>');
-                    $("#btn-submit").html('<span class="glyphicon glyphicon-log-in"></span> &nbsp; Create Account');
-                });
-            }
-        }
-        });
-        return false;
+            $.ajax({
+                type        : 'POST',
+                url         : 'https://web10-1-adrianvarga77.c9users.io/api/accounts/create',
+                data        : {
+                    name        : name,
+                    email       : email,
+                    password    : password,
+                    repassword  : repassword,
+                    role        : role
+                },
+                beforeSend  : function()
+                {
+                    $("#error").fadeOut();
+                    $("#btn-submit").html('<span class="glyphicon glyphicon-transfer"></span> &nbsp; sending ...');
+                },
+                success     : function(response)
+                {
+                    if(response.ok == true)
+                    {
+                        $("#btn-submit").html('Signing Up');
+                        $("#error").html('<div class="alert alert-danger"> <span class="glyphicon glyphicon-info-sign"></span> &nbsp; Account was successfully created!</div>');
+                        window.location.replace("login.html");
+                    }
+                    else{
+                        $("#error").fadeIn(1000, function(){
+                            $("#error").html('<div class="alert alert-danger"><span class="glyphicon glyphicon-info-sign"></span> &nbsp; '+ response.error +'</div>');
+                            $("#btn-submit").html('<span class="glyphicon glyphicon-log-in"></span> &nbsp; Create Account');
+                        });
+                    }
+                }
+            });
+            return false;
         }
     });
 });
