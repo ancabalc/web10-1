@@ -19,7 +19,7 @@ $(document).ready(function() {
         } else {
             $.ajax({
                 type        : 'POST',
-                url         : 'https://web10-1-adrianvarga77.c9users.io/api/accounts/create',
+                url         : '/api/accounts/create',
                 data        : {
                     name        : name,
                     email       : email,

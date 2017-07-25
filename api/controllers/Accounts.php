@@ -3,7 +3,6 @@ require "models/UsersModel.php";
 require "helpers/password.php";
 require "helpers/response.php";
 
-
 class Accounts {
     private $usersModel;
     
@@ -36,14 +35,14 @@ class Accounts {
         } else {
             $salt = '$1$12!ab';
             $password = crypt($_POST["password"], $salt);
-            return $this->usersModel->addAccount($_POST);
+            $this->usersModel->addAccount($_POST);
         }
 
         if (empty($error)) {
-			return "Account was successfully created!";
+			return success_response("Account was successfully created!");
 
         } else {
-			return $error;
+			return error_response($error);
 		}
     }
     
@@ -98,6 +97,5 @@ class Accounts {
         }
     }
 }
-
 
 ?>
