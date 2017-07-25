@@ -1,6 +1,8 @@
 <?php
 
 require_once "DB.php";
+// error_reporting(E_ALL);
+// ini_set('display_errors', 1);
 
 class UsersModel extends DB{
     function getTop3() {
@@ -19,7 +21,6 @@ class UsersModel extends DB{
         $sth->execute($params);
         return $sth->rowCount();    
     }
-    
     function addAccount($item) {
         $params =  [$item["name"],
                     $item["email"],
@@ -37,7 +38,7 @@ class UsersModel extends DB{
         $query = 'SELECT * FROM users WHERE email = ? and password = ?';
         $sth = $this->db->prepare($query);
         $sth->execute($params); 
-        return $sth->fetch(PDO::FETCH_ASSOC);
+        return $sth->fetchAll(PDO::FETCH_ASSOC);
     }
     
     function checkEmail($email) {
@@ -60,5 +61,4 @@ class UsersModel extends DB{
         $sth->execute($params); 
         return $sth->rowcount();
     }
-
 }

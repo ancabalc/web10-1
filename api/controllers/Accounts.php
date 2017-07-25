@@ -1,7 +1,8 @@
 <?php
-require "models/UsersModels.php";
+require "models/UsersModel.php";
 require "helpers/password.php";
 require "helpers/response.php";
+
 
 class Accounts {
     private $usersModel;
@@ -16,6 +17,7 @@ class Accounts {
         if (empty($_POST["name"])
          || empty($_POST["email"])
          || empty($_POST["password"])
+         || empty($_POST["repassword"])
          || empty($_POST["role"])) {
             array_push($error, "All fields are required!");
         
@@ -24,39 +26,42 @@ class Accounts {
 
         } else if (!filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {
             array_push($error, "Invalid email!");
-
+            
+        } else if ($_POST["password"] !== $_POST["repassword"]) {
+            echo "Passwords do not match!";
+            
         } else if (strlen($_POST["password"]) < 6) {
             array_push($error, "Password must have at least 6 characters!");
-
-        } else if ($_POST["password"] !== $_POST["repassword"]) {
-            array_push($error, "Passwords do not match!");
         
         } else {
             $salt = '$1$12!ab';
             $password = crypt($_POST["password"], $salt);
-            $this->usersModel->addAccount($_POST);
+            return $this->usersModel->addAccount($_POST);
         }
 
         if (empty($error)) {
-			return success_response("Account was successfully created!");
+			return "Account was successfully created!";
 
         } else {
-			return error_response($error);
+			return $error;
 		}
     }
     
     function login() {
         if (empty($_POST['email']) || empty($_POST['password'])) {
-            return 'Invalid fields';
+            return error_response('Invalid fields');
         } else {
-            $_POST['password'] = passEnc($_POST["password"]);
-            $result = $this->usersModel->checkLogin($_POST);
-            if (empty ($result)) {
-                return "User or password not found.";
+            $pass = passEnc($_POST["password"]);
+            $email = $_POST['email'];
+            $params = [$email, $pass];
+            
+            $result = $this->usersModel->checkLogin($params);
+            if (empty($result)) {
+                return error_response("User or password not found.");
             } else {
                 $_SESSION["isLogged"] = TRUE;
                 $_SESSION["email"] = $_POST['email'];
-                return $_SESSION;
+                return success_response($_SESSION);
             }
         }
     }
