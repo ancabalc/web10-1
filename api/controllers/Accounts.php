@@ -51,17 +51,20 @@ class Accounts {
         if (empty($_POST['email']) || empty($_POST['password'])) {
             return error_response('Invalid fields');
         } else {
-            $pass = passEnc($_POST["password"]);
+            $pass = $_POST['password'];
             $email = $_POST['email'];
-            $params = [$email, $pass];
-            
-            $result = $this->usersModel->checkLogin($params);
+            $result = $this->usersModel->checkEmail($email);
             if (empty($result)) {
-                return error_response("User or password not found.");
+                return error_response("User not found.");
             } else {
-                $_SESSION["isLogged"] = TRUE;
-                $_SESSION["email"] = $_POST['email'];
-                return success_response($_SESSION);
+                $found = checkMailWithPass($result, $pass);
+                if ($found === false) {
+                    return error_response("User and password do not match.");
+                } else {
+                    $_SESSION["isLogged"] = TRUE;
+                    $_SESSION["email"] = $_POST['email'];
+                    return success_response($_SESSION);
+                }
             }
         }
     }

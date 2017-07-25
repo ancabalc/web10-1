@@ -10,4 +10,13 @@ function hashPass() {
     return $newPass;
 }
 
+function checkMailWithPass($user, $pass) {
+    $encPass = passEnc($pass);
+    if ($user["password"] === $encPass) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
 ?>
